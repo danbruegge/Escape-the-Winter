@@ -17,4 +17,4 @@ Screenshot
 ![Screenshot of Guzzle](assets/images/escapethewinter.png)
 
 [cmdsoniq]: http://twitter.com/cmdsoniq/ "cmdsoniq"
-[i]: http://twitter.com/danbruegge/ "danbruegge"
+[danbruegge]: http://twitter.com/danbruegge/ "danbruegge"
