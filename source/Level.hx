@@ -23,7 +23,7 @@ class Level extends FlxTypedGroup<Sector> {
 
     public function next():Void {
     
-        getFirstAlive().background.loadGraphic('assets/images/sector_grass.png');
+        getFirstAlive().setBackground('grass');
         // TODO
         // ====
         // getfirstalive, reset the group to the end of it

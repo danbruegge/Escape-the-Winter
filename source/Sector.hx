@@ -12,8 +12,7 @@ class Sector extends FlxTypedGroup<FlxSprite> {
     public var baseX:Int;
     public var background:FlxSprite;
 
-    var _ground:Int = 1;
-    var _grounds:Array<String>;
+    var _baseGround:String = 'grass';
     var _obstacleCount:Int;
     var _humanCount:Int;
     var _positions:Array<String>;
@@ -24,17 +23,11 @@ class Sector extends FlxTypedGroup<FlxSprite> {
 
         tileSize = Settings.tileSize;
 
-        _grounds = [
-            'assets/images/sector_snow.png',
-            'assets/images/sector_grass.png'
-        ];
-
-        if (BaseX == 0) _ground = 0;
+        if (BaseX == 0) _baseGround = 'snow';
 
         baseX = BaseX * 5;
 
-        background = new FlxSprite((baseX * tileSize), 0, _grounds[_ground]);
-        FlxG.state.add(background);
+        _createBackground();
 
         _obstacleCount = FlxRandom.intRanged(10, 15);
         _humanCount = FlxRandom.intRanged(1, 5);
@@ -43,6 +36,12 @@ class Sector extends FlxTypedGroup<FlxSprite> {
         _createObstacles();
         _createHumans();
 
+    }
+
+    public function setBackground(animationName:String='grass'):Void {
+    
+        background.animation.play(animationName);
+    
     }
 
     function _getRandomPos():FlxPoint {
@@ -61,6 +60,22 @@ class Sector extends FlxTypedGroup<FlxSprite> {
         }
 
         return _getRandomPos();
+
+    }
+
+    function _createBackground():Void {
+    
+        background = new FlxSprite(baseX * tileSize, 0);
+        background.loadGraphic(
+            'assets/images/sectors.png',
+            true,
+            tileSize * 5,
+            tileSize * 15
+        );
+        background.animation.add('snow', [0], 0, false);
+        background.animation.add('grass', [1], 0, false);
+        FlxG.state.add(background);
+        setBackground(_baseGround);
 
     }
 

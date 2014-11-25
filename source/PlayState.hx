@@ -22,10 +22,10 @@ class PlayState extends FlxState {
         FlxG.mouse.visible = false;
         FlxG.cameras.bgColor = 0x333333;
 
-// #if !debug
-//         FlxG.debugger.visible = true;
-//         FlxG.debugger.drawDebug = true;
-// #end
+#if !debug
+        FlxG.debugger.visible = true;
+        FlxG.debugger.drawDebug = true;
+#end
 
         _level = new Level();
         _player = new Player();
