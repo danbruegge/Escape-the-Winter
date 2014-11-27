@@ -1,10 +1,11 @@
 package;
 
 import flixel.FlxG;
-import flixel.group.FlxTypedGroup;
+import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.util.FlxRandom;
+import flixel.group.FlxTypedGroup;
 import flixel.util.FlxPoint;
+import flixel.util.FlxRandom;
 
 class Sector extends FlxTypedGroup<FlxSprite> {
 
@@ -25,9 +26,7 @@ class Sector extends FlxTypedGroup<FlxSprite> {
 
         if (BaseX == 0) _baseGround = 'snow';
 
-        baseX = BaseX * 5;
-
-        _createBackground();
+        baseX = BaseX * Settings.sectorSize;
 
         _obstacleCount = FlxRandom.intRanged(10, 15);
         _humanCount = FlxRandom.intRanged(1, 5);
@@ -36,11 +35,58 @@ class Sector extends FlxTypedGroup<FlxSprite> {
         _createObstacles();
         _createHumans();
 
+        _createBackground();
+
     }
 
     public function setBackground(animationName:String='grass'):Void {
     
         background.animation.play(animationName);
+
+        forEach(function (tile:FlxSprite) {
+        
+            if (tile.ID == 2) {
+                tile.animation.play(animationName);
+            }
+        
+        });
+    
+    }
+
+    public function shiftSector(tiles:Int, ?newFacing:Int=FlxObject.LEFT):Void {
+
+        var ts = tileSize * tiles;
+    
+        forEach(function (tile:FlxSprite) {
+
+            if (newFacing == FlxObject.RIGHT) {
+                tile.x += ts;
+            } else {
+                tile.x -= ts;
+            }
+        
+        });
+
+        if (newFacing == FlxObject.RIGHT) {
+            background.x = ts;
+        } else {
+            background.x -= ts;
+        }
+    
+    }
+
+    public function reviveHumans():Void {
+    
+        forEach(function (tile:FlxSprite) {
+        
+            if (tile.ID == 1 && !tile.alive) {
+
+                tile.alive = true;
+                tile.animation.play('manned');
+            
+            }
+
+        });
     
     }
 
@@ -74,7 +120,9 @@ class Sector extends FlxTypedGroup<FlxSprite> {
         );
         background.animation.add('snow', [0], 0, false);
         background.animation.add('grass', [1], 0, false);
+
         FlxG.state.add(background);
+
         setBackground(_baseGround);
 
     }

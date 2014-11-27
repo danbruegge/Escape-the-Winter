@@ -22,10 +22,10 @@ class PlayState extends FlxState {
         FlxG.mouse.visible = false;
         FlxG.cameras.bgColor = 0x333333;
 
-#if !debug
-        FlxG.debugger.visible = true;
-        FlxG.debugger.drawDebug = true;
-#end
+// #if !debug
+//         FlxG.debugger.visible = true;
+//         FlxG.debugger.drawDebug = true;
+// #end
 
         _level = new Level();
         _player = new Player();
@@ -44,13 +44,16 @@ class PlayState extends FlxState {
 
         super.update();
 
-        FlxG.overlap(_player, _walls, _player.gameOver);
-        FlxG.overlap(_player, _level, _player.gameOver);
-
         if (_player.x > (Settings.tileSize * 19)) {
             
+            _player.shift(Settings.sectorSize, FlxObject.LEFT);
             _level.next();
         
+        } else {
+
+            FlxG.overlap(_player, _walls, _player.gameOver);
+            FlxG.overlap(_player, _level, _player.gameOver);
+
         }
 
     }

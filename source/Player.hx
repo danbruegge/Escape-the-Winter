@@ -54,7 +54,7 @@ class Player extends Entity {
     
     }
 
-    override public function move(?newFacing:Int):Void {
+    override public function move(?tiles:Int=1, ?newFacing:Int=-1):Void {
     
         _headPoints.unshift(FlxPoint.get(x, y));
 
@@ -64,7 +64,7 @@ class Player extends Entity {
 
         }
 
-        super.move(newFacing);
+        super.move(tiles, newFacing);
 
         _headFacings.unshift(facing);
 
@@ -87,6 +87,31 @@ class Player extends Entity {
 
         }
 
+
+    }
+
+    /*
+     * Shift the player and the body n tiles to the right. Here it is ignoring
+     * the facing option.
+     */
+    public function shift(tiles:Int=1, ?newFacing:Int=-1):Void {
+    
+        // need to store the old facing, to reset it after the shift
+        var oldFacing:Int = facing;
+        
+        // need to +1 the tiles..
+        var ts = tileSize * (tiles + 1);
+
+        move(tiles, newFacing);
+
+        // shift the body
+        for (i in 0..._headPoints.length) {
+            _headPoints[i].x -= ts;
+            body.members[i].x -= ts;
+        }
+
+        // reset old facing
+        facing = oldFacing;
 
     }
 

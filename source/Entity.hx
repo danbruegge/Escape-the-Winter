@@ -16,19 +16,21 @@ class Entity extends FlxSprite {
 
     }
 
-    public function move(?newFacing:Int):Void {
+    public function move(?tiles:Int=1, ?newFacing:Int=-1):Void {
         
+        var ts = tileSize * tiles;
+
         if (newFacing >= 0) facing = newFacing;
 
         switch(facing) {
             case FlxObject.UP: 
-                y -= tileSize;
+                y -= ts;
             case FlxObject.RIGHT: 
-                x += tileSize;
+                x += ts;
             case FlxObject.DOWN: 
-                y += tileSize;
+                y += ts;
             case FlxObject.LEFT: 
-                x -= tileSize;
+                x -= ts;
         }
     
     }

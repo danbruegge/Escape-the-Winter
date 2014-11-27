@@ -12,6 +12,7 @@ class Settings {
         FlxObject.DOWN,
         FlxObject.LEFT
     ];
+    public static var sectorSize:Int = 5;
 
 
 }

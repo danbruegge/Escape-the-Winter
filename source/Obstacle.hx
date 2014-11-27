@@ -11,11 +11,14 @@ class Obstacle extends Entity {
     
         super(X, Y);
 
+        // set ID to 2, to identify the obstacle
+        ID = 2;
         type = FlxRandom.intRanged(8, 9);
 
         loadGraphic('assets/images/sprite.png', true, tileSize, tileSize);
-        animation.add('default', [type], 0, false);
-        animation.play('default');
+        animation.add('grass', [type], 0, false);
+        animation.add('snow', [type + 2], 0, false);
+        animation.play('grass');
     
     }
 
