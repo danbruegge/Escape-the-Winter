@@ -53,6 +53,8 @@ class PlayState extends FlxState {
 
             FlxG.overlap(_player, _walls, _player.gameOver);
             FlxG.overlap(_player, _level, _player.gameOver);
+            FlxG.collide(_player, _player.body, _player.gameOver);
+        
 
         }
 

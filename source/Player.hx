@@ -48,8 +48,6 @@ class Player extends Entity {
         
         super.update();
 
-        FlxG.collide(this, body, gameOver);
-        
         _controls();
     
     }
